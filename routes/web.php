@@ -38,10 +38,21 @@ Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     })->name('user.settings');
 });
 
-Route::get('/user/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth', 'verified', 'role:user'])->name('user.dashboard');
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    // আরো Admin রিলেটেড Route গুলো এখানে
+    Route::get('/admin/users', function () {
+        return view('admin.users');
+    })->name('admin.users');
+
+    Route::get('/admin/settings', function () {
+        return view('admin.settings');
+    })->name('admin.settings');
+});
 
 
 
